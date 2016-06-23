@@ -1,0 +1,4 @@
+/.vagrant
+/static
+*.pyc
+/ToDo/settings/local.py
