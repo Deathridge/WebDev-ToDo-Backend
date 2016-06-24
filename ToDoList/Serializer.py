@@ -28,16 +28,16 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
         model = Item
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    taskItems = ItemSerializer(many=True)
+    items = ItemSerializer(many=True)
 
     class Meta:
         model = Task
     
     def create(self, validated_data):
-        items_data = validated_data.pop('taskItems')
+        items_data = validated_data.pop('items')
 
         task = Task.objects.create(**validated_data)
 
         for item_data in items_data:
-            Item.objects.create(taskItem=task, **item_data)
+            Item.objects.create(task=task, **item_data)
         return task
