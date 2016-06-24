@@ -39,5 +39,5 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
         task = Task.objects.create(**validated_data)
 
         for item_data in items_data:
-            Item.objects.create(taskItems=task, **items_data)
+            Item.objects.create(taskItems=task, **item_data)
         return task
