@@ -34,5 +34,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    def get_queryset(self):
+        
 
-    return queryset
+        return queryset
