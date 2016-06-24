@@ -23,11 +23,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         
         return user
 
-
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Task
-    
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
+
+class TaskSerializer(serializers.HyperlinkedModelSerializer):
+    taskItems = ItemSerializer(many=True, read_only=False)
+
+    class Meta:
+        model = Task
+    
