@@ -6,7 +6,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         lookup_field = 'username'
         model = User 
-        exclude = ('user_permissions','creator_id')
+        exclude = ('user_permissions',)
         
         extra_kwargs = {
             'password' : {'write_only': True}
