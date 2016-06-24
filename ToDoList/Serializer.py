@@ -33,3 +33,11 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Task
     
+    def create(self, validated_data):
+        items_data = validated_data.pop('taskItems')
+
+        task = Task.objects.create(**validated_data)
+
+        for item_data in items_data:
+            Item.objects.create(taskItems=task, **items_data)
+        return task
