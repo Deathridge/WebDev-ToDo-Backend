@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 class Item(models.Model):
 	taskItem = models.CharField(max_length=255, default="")
-	creator = models.ForeignKey(User, null=True)
 
 class Task(models.Model):
     taskName = models.CharField(max_length=30)

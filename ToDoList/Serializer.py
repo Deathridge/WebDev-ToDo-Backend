@@ -28,7 +28,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
         model = Item
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    taskItems = ItemSerializer(many=True, read_only=False)
+    taskItems = ItemSerializer(many=True)
 
     class Meta:
         model = Task

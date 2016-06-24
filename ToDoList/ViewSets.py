@@ -35,11 +35,4 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            return Item.objects.all()
-        else:
-            return Item.objects.filter(creator = self.request.user)
-
-    def perform_create(self, serializer):   
-        serializer.save(creator = self.request.user)
+    return queryset
