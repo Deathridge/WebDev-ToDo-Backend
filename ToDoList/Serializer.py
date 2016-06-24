@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from ToDoList.models import Task
+from ToDoList.models import Task, Item
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -28,4 +28,6 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Task
     
-    
+class ItemSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Item
