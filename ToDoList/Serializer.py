@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from ToDoList.models import Task, Item
+from ToDoList.models import Task
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,21 +23,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         
         return user
 
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Item
-
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    items = ItemSerializer(many=True)
-
+    
     class Meta:
         model = Task
     
-    def create(self, validated_data):
-        items_data = validated_data.pop('items')
-
-        task = Task.objects.create(**validated_data)
-
-        for item_data in items_data:
-            Item.objects.create(task=task, **item_data)
-        return task
+    

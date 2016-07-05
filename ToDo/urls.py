@@ -16,16 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from ToDoList.ViewSets import UserViewSet,TaskViewSet,ItemViewSet
+from ToDoList.ViewSets import UserViewSet,TaskViewSet
+from rest_framework_jwt.views import obtain_jwt_token
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'tasks', TaskViewSet)
-router.register(r'items', ItemViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]

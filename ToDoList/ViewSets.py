@@ -1,9 +1,10 @@
 from rest_framework import viewsets
-from ToDoList.Serializer import UserSerializer,TaskSerializer,ItemSerializer
-from ToDoList.models import Task,Item
+from ToDoList.Serializer import UserSerializer,TaskSerializer
+from ToDoList.models import Task
 from django.contrib.auth.models import User,Permission
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 @permission_classes((AllowAny, ))
 class UserViewSet(viewsets.ModelViewSet):
@@ -15,7 +16,9 @@ class UserViewSet(viewsets.ModelViewSet):
         	return User.objects.all()
     	else:
         	return User.objects.filter(id=self.request.user.id)
-    
+
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JSONWebTokenAuthentication, ))    
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -31,8 +34,3 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):   
         serializer.save(creator = self.request.user)
 
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-    def get_queryset(self):
-        return queryset
